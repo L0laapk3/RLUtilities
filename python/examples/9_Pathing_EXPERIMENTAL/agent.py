@@ -14,7 +14,9 @@ from rlutilities.simulation import Car, Game, Curve, ControlPoint, Ball, Navigat
 class Agent(BaseAgent):
 
     def __init__(self, name, team, index):
-        self.game = Game(index, team)
+        super().__init__(name, team, index)
+        self.game = Game()
+        self.game.set_mode("soccar")
         self.controls = SimpleControllerState()
         self.action = None
         self.navigator = None
@@ -39,16 +41,16 @@ class Agent(BaseAgent):
         self.set_game_state(GameState(ball=ball_state))
 
         if not self.action:
-            self.action = FollowPath(self.game.my_car)
+            self.action = FollowPath(self.game.cars[self.index])
             self.action.arrival_speed = 1600
 
-            self.navigator = Navigator(self.game.my_car)
+            self.navigator = Navigator(self.game.cars[self.index])
 
         if controller.L1:
 
             self.navigator.analyze_surroundings(3.0)
             self.action.path = self.navigator.path_to(vec3(x, y, z), vec3(1, 0, 0), self.action.arrival_speed)
-            self.action.arrival_time = self.game.my_car.time + 3
+            self.action.arrival_time = self.game.cars[self.index].time + 3
 
             self.controls = controller.get_output()
 
@@ -56,7 +58,7 @@ class Agent(BaseAgent):
 
             # self.controls = SimpleControllerState()
 
-            self.action.step(self.game.time_delta)
+            #self.action.step(self.game.time_delta)
 
             if self.action.finished:
                 self.controls = SimpleControllerState()
@@ -74,7 +76,7 @@ class Agent(BaseAgent):
             for i in range(0, len(vertices)-1):
                 self.renderer.draw_line_3d(vertices[i], vertices[i+1], red)
 
-            self.renderer.draw_string_2d(50, 50, 3, 3, str(self.action.arrival_time - self.game.my_car.time), red)
+            self.renderer.draw_string_2d(50, 50, 3, 3, str(self.action.arrival_time - self.game.cars[self.index].time), red)
             self.renderer.end_rendering()
 
         return self.controls

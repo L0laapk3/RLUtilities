@@ -21,8 +21,6 @@ if __name__ == '__main__':
     install_and_import('rlbot')
     from rlbot.utils import public_utils
 
-    if public_utils.is_safe_to_upgrade():
-        pipmain(['install', '-r', 'requirements.txt', '--upgrade', '--upgrade-strategy=eager'])
 
     try:
         import sys

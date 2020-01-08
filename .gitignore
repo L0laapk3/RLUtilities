@@ -38,3 +38,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+
+build37/
+build38/
+python/rlutilities/

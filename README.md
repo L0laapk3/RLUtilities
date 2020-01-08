@@ -1,3 +1,11 @@
+
+# Notes from L0laapk3
+
+This work is based on samuelpmish/RLUtilities' prerelease branch.
+I've modified some functions, it may not be compatible anymore with his version.
+
+I've also modified the build functions and stubgen, the output folder is python/rlutilities.
+
 # Overview
 
 This project aims to provide a way for members of the RLBot community to contribute

@@ -19,6 +19,7 @@ void init_ball(pybind11::module & m) {
 		.def_readonly_static("radius", &Ball::radius)
 		.def_readonly_static("collision_radius", &Ball::collision_radius)
 		.def("hitbox", &Ball::hitbox)
-		.def("step", static_cast<void (Ball::*)(float)>(&Ball::step))
-		.def("step", static_cast<void (Ball::*)(float, const Car &)>(&Ball::step));
+		.def("step", static_cast<bool (Ball::*)(float)>(&Ball::step))
+		.def("collide", static_cast<bool (Ball::*)(const Car &, bool)>(&Ball::collide))
+		.def("step", static_cast<bool (Ball::*)(float, const Car &)>(&Ball::step));
 }
