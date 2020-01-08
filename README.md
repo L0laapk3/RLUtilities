@@ -1,10 +1,14 @@
 
 # Notes from L0laapk3
 
+<img src="https://ci.appveyor.com/api/projects/status/L0laapk3/rlutilities" alt="Appveyor Badge">
+
 This work is based on samuelpmish/RLUtilities' prerelease branch.
 I've modified some functions, it may not be compatible anymore with his version.
 
-I've also modified the build functions and stubgen, the output folder is python/rlutilities.
+I've also modified the build scripts and stubgen.
+
+The latest build can be found here: https://ci.appveyor.com/project/L0laapk3/rlutilities/build/artifacts
 
 # Overview
 

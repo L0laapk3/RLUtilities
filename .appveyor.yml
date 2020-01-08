@@ -1,0 +1,49 @@
+
+image: Visual Studio 2019
+platform:
+   - amd64
+
+
+install:
+   - git submodule update --init --recursive
+   - C:\Python38-x64\python.exe -m pip install pybind11_stubgen
+
+
+before_build:
+   - mkdir "python/rlutilities"
+
+
+build_script:
+   - mkdir build38
+   - cd build38
+   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python38-x64\python.exe
+   - cmake --build . --config Release
+   - mv Release/rlutilities.*.pyd ../python/rlutilities
+   - cd ..
+   - mkdir build37
+   - cd build37
+   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python37-x64\python.exe
+   - cmake --build . --config Release
+   - mv Release/rlutilities.*.pyd ../python/rlutilities
+   - cd ..
+   - mkdir build36
+   - cd build36
+   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python36-x64\python.exe
+   - cmake --build . --config Release
+   - mv Release/rlutilities.*.pyd ../python/rlutilities
+   - cd ..
+   
+after_build:
+   - cd python/rlutilities
+   - C:\Python38-x64\python.exe -m pybind11_stubgen rlutilities --no-setup -o=.. --root_module_suffix=
+   - cp ../__init__.py __init__.py
+   - cp ../../LICENSE.txt LICENSE.txt
+   - cd ..
+   - ps: Compress-Archive -Path rlutilities -DestinationPath rlutilities.zip
+   
+test: off
+
+artifacts:
+   - path: python/rlutilities.zip
+   
+deploy: off
