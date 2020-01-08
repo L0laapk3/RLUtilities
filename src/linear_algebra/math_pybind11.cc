@@ -169,4 +169,9 @@ void init_linalg(pybind11::module & m) {
 	m.def("normalize", (vec3(*)(const vec3 &)) &normalize);
 	m.def("normalize", (vec2(*)(const vec2 &)) &normalize);
 
+	m.def("project", (vec3(*)(const vec3 &, const vec3 &)) &project);
+	m.def("project", (vec2(*)(const vec2 &, const vec2 &)) &project);
+	m.def("orthogonalize", (vec3(*)(const vec3 &, const vec3 &)) &orthogonalize);
+	m.def("orthogonalize", (vec2(*)(const vec2 &, const vec2 &)) &orthogonalize);
+
 }

@@ -207,6 +207,29 @@ inline vec<n> relu(const vec<n>& v) {
   return u;
 }
 
+
+
+// project the first vector on the second
+template <int n>
+inline vec<n> project(const vec<n>& v, const vec<n>& other) {
+    vec<n> u = normalize(other);
+    u *= dot(u, other);
+    return u;
+}
+
+// orthogonalize the first vector from the second
+template <int n>
+inline vec<n> orthogonalize(const vec<n>& v, const vec<n>& other) {
+    vec<n> u = project(v, other);
+    u *= -1;
+    u += v;
+    return u;
+}
+
+
+
+
+
 template <int n>
 inline vec<n> clamp(const vec<n>& v, const float min_value, const float max_value) {
   vec<n> u;
@@ -215,6 +238,7 @@ inline vec<n> clamp(const vec<n>& v, const float min_value, const float max_valu
   }
   return u;
 }
+
 
 typedef vec<2> vec2;
 typedef vec<3> vec3;
