@@ -20,7 +20,7 @@ mkdir build
 cd build
 cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python
 cmake --build . --config Release
-mv Release/rlutilities.*.pyd python/rlutilities/
+mv Release/rlutilities.*.pyd ../python/rlutilities/
 cd ..
 
 

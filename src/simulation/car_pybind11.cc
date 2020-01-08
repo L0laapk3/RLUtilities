@@ -26,7 +26,10 @@ void init_car(pybind11::module & m) {
 		.def_readwrite("jump_timer", &Car::jump_timer)
 		.def_readwrite("dodge_timer", &Car::dodge_timer)
 		.def_readwrite("boost", &Car::boost)
-		.def_readwrite("controls", &Car::controls);
+		.def_readwrite("controls", &Car::controls)
+		.def_readonly_static("mass", &Car::m)
+		.def_readonly_static("angular_velocity_max", &Car::w_max)
+		.def_readonly_static("velocity_max", &Car::v_max);
 
 	pybind11::class_<Input>(m, "Input")
 		.def(pybind11::init<>())
