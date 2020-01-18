@@ -43,7 +43,7 @@ float Drive::max_turning_curvature(float v) {
   float input = clip(fabs(v), 0.0f, 2300.0f);
 
   for (int i = 0; i < (n - 1); i++) {
-    if (values[i][0] <= input && input < values[i + 1][0]) {
+    if (values[i][0] <= input && input <= values[i + 1][0]) {
       float u = (input - values[i][0]) / (values[i + 1][0] - values[i][0]);
       return lerp(values[i][1], values[i + 1][1], u);
     }
