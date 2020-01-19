@@ -16,19 +16,19 @@ before_build:
 build_script:
    - mkdir build38
    - cd build38
-   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python38-x64\python.exe
+   - cmake .. -G "Visual Studio 16 2019" -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python38-x64\python.exe
    - cmake --build . --config Release
    - mv Release/rlutilities.*.pyd ../python/rlutilities
    - cd ..
    - mkdir build37
    - cd build37
-   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python37-x64\python.exe
+   - cmake .. -G "Visual Studio 16 2019" -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python37-x64\python.exe
    - cmake --build . --config Release
    - mv Release/rlutilities.*.pyd ../python/rlutilities
    - cd ..
    - mkdir build36
    - cd build36
-   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python36-x64\python.exe
+   - cmake .. -G "Visual Studio 16 2019" -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python36-x64\python.exe
    - cmake --build . --config Release
    - mv Release/rlutilities.*.pyd ../python/rlutilities
    - cd ..
