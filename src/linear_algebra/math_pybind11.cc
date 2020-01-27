@@ -144,6 +144,9 @@ void init_linalg(pybind11::module & m) {
 	m.def("cross", (vec3(*)(const vec3 &, const vec3 &)) &cross);
 	m.def("cross", (vec3(*)(const vec3 &)) &cross);
 	m.def("cross", (vec2(*)(const vec2 &)) &cross);
+	
+	m.def("atan2", (float(*)(const vec3 &)) &atan2);
+	m.def("atan2", (float(*)(const vec2 &)) &atan2);
 
 	m.def("inv", (mat2(*)(const mat2 &)) &inv);
 	m.def("inv", (mat3(*)(const mat3 &)) &inv);

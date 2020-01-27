@@ -179,6 +179,7 @@ inline vec<n> operator/(const float other, const vec<n>& v) {
 }
 
 inline float atan2(const vec<2>& v) { return atan2(v(1), v(0)); }
+inline float atan2(const vec<3>& v) { return atan2(v(1), v(0)); }
 
 template <int n>
 inline float dot(const vec<n>& u, const vec<n>& v) {
