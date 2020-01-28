@@ -179,6 +179,17 @@ inline vec<n> operator/(const float other, const vec<n>& v) {
 }
 
 template <int n>
+inline vec<n> flatten(const vec<n>& v) {
+  vec<n> u;
+  u(0) = 0;
+  u(1) = 0;
+  for (int i = 2; i < n; i++) {
+    u(i) = v(i);
+  }
+  return u;
+}
+
+template <int n>
 inline float atan2(const vec<n>& v) { return atan2(v(1), v(0)); }
 
 template <int n>

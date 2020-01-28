@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-rm build -rf
 rm python/rlutilities -rf
 
 
