@@ -178,8 +178,19 @@ inline vec<n> operator/(const float other, const vec<n>& v) {
   return u;
 }
 
-inline float atan2(const vec<2>& v) { return atan2(v(1), v(0)); }
-inline float atan2(const vec<3>& v) { return atan2(v(1), v(0)); }
+template <int n>
+inline float atan2(const vec<n>& v) { return atan2(v(1), v(0)); }
+
+template <int n>
+inline vec<n> rotate2(const vec<n>& v, const float theta) {
+  vec<n> u;
+  u(0) = v(0) * cos(theta) - v(1) * sin(theta);
+  u(1) = v(0) * sin(theta) + v(1) * cos(theta);
+  for (int i = 2; i < n; i++) {
+    u(i) = v(i);
+  }
+  return u;
+}
 
 template <int n>
 inline float dot(const vec<n>& u, const vec<n>& v) {
