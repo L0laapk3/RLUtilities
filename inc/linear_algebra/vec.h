@@ -178,20 +178,17 @@ inline vec<n> operator/(const float other, const vec<n>& v) {
   return u;
 }
 
-template <int n>
-inline vec<n> flatten(const vec<n>& v) {
-  vec<n> u;
+inline vec<3> flatten(const vec<3>& v, const float height = 0.0) {
+  vec<3> u;
   u(0) = v(0);
   u(1) = v(1);
-  for (int i = 2; i < n; i++) {
-    u(i) = 0;
-  }
+  u(2) = height;
   return u;
 }
 
-inline vec<3> flattenOrientation(const vec<3>& v) {
+inline vec<3> flattenOrientation(const vec<3>& v, const float pitch = 0.0) {
   vec<3> u;
-  u(0) = 0;
+  u(0) = pitch;
   u(1) = v(1);
   u(2) = v(2);
   return u;
