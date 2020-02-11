@@ -153,7 +153,6 @@ void init_linalg(pybind11::module & m) {
 	m.def("rotate2", (vec2(*)(const vec2 &, const float)) &rotate2);
 
 	m.def("flatten",  (vec3(*)(const vec3 &, const float)) &flatten, pybind11::arg("v"), pybind11::arg("height") = 0.0f);
-	m.def("flatten_orientation",  (vec3(*)(const vec3 &, const float)) &flattenOrientation, pybind11::arg("v"), pybind11::arg("pitch") = 0.0f);
 
 	m.def("inv", (mat2(*)(const mat2 &)) &inv);
 	m.def("inv", (mat3(*)(const mat3 &)) &inv);
