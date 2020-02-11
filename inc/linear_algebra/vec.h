@@ -189,6 +189,14 @@ inline vec<n> flatten(const vec<n>& v) {
   return u;
 }
 
+inline vec<3> flattenOrientation(const vec<3>& v) {
+  vec<3> u;
+  u(0) = 0;
+  u(1) = v(1);
+  u(2) = v(2);
+  return u;
+}
+
 template <int n>
 inline float atan2(const vec<n>& v) { return atan2(v(1), v(0)); }
 
