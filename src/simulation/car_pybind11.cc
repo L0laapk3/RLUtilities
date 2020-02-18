@@ -7,6 +7,7 @@ void init_car(pybind11::module & m) {
 		.def(pybind11::init<>())
 		.def(pybind11::init<const Car &>())
 		.def("step", &Car::step)
+		.def("nextApproxCollision", &Car::nextApproxCollision)
 		.def("hitbox", &Car::hitbox)
 		.def("extrapolate", &Car::extrapolate)
 		.def("forward", &Car::forward)

@@ -4,10 +4,12 @@
 #include "mechanics/dodge.h"
 #include "mechanics/jump.h"
 #include "mechanics/drive.h"
+#include "simulation/field.h"
 
 #include "misc/convert.h"
 
 #include <fstream>
+#include <cmath>
 
 
 const float Car::m = 180.0f;
@@ -401,5 +403,83 @@ void Car::update(Car next) {
   } else {
     boost_timer = -1.0f;
   }
+}
+
+
+
+
+
+float Car::nextApproxCollision(vec3& collisionPosition, vec3& collisionVelocity, vec3& collisionDirection) {
+
+  const float RESTHEIGHT = 17.01f;
+	const vec3 gravity = vec3{ 0.0, 0.0, -650.0f };
+  
+  float step = (float)std::pow(2, std::floor(std::log(2 * 120 / (norm(velocity) + 400) * RESTHEIGHT)/std::log(2))) / 120;
+  float largeStep = step * 16;
+
+
+  collisionVelocity = velocity;
+  collisionPosition = position;
+  vec3 nextVelocity = velocity + gravity * step;
+  nextVelocity *= fminf(1.0, v_max / norm(nextVelocity));
+  vec3 nextPosition = position + nextVelocity * step;
+
+  float time = 0;
+  
+	ray contact = Field::collide(sphere{ nextPosition, RESTHEIGHT * 16 });
+  while (norm(contact.direction) == 0.0) {
+    time += largeStep;
+    collisionVelocity = vec3(nextVelocity);
+    collisionPosition = vec3(nextPosition);
+    nextVelocity += gravity * largeStep;
+    nextVelocity *= fminf(1.0, v_max / norm(nextVelocity));
+    nextPosition += nextVelocity * largeStep;
+    contact = Field::collide(sphere{ nextPosition, RESTHEIGHT * 16 });
+  }
+
+	contact = Field::collide(sphere{ nextPosition, RESTHEIGHT });
+  while (norm(contact.direction) == 0.0) {
+    time += step;
+    collisionVelocity = vec3(nextVelocity);
+    collisionPosition = vec3(nextPosition);
+    nextVelocity += gravity * step;
+    nextVelocity *= fminf(1.0, v_max / norm(nextVelocity));
+    nextPosition += nextVelocity * step;
+    contact = Field::collide(sphere{ nextPosition, RESTHEIGHT });
+  }
+
+  if (step > 1.5f / 120) {
+    step /= 2;
+    
+    while (true) {
+      if (norm(contact.direction) == 0.0) {
+        collisionVelocity = vec3(nextVelocity);
+        collisionPosition = vec3(nextPosition);
+        time += step;
+      }
+      if (step > 1.5f / 120) {
+        nextVelocity = collisionVelocity + gravity * step;
+        nextVelocity *= fminf(1.0, v_max / norm(nextVelocity));
+        nextPosition = collisionPosition + nextVelocity * step;
+        contact = Field::collide(sphere{ nextPosition, RESTHEIGHT });
+        step /= 2;
+      } else
+        break;
+    }
+  }
+
+  while (norm(contact.direction) == 0.0) {
+    collisionVelocity = vec3(nextVelocity);
+    collisionPosition = vec3(nextPosition);
+    nextVelocity = collisionVelocity + gravity * 1.0f / 120;
+    nextVelocity *= fminf(1.0, v_max / norm(nextVelocity));
+    nextPosition = collisionPosition + nextVelocity * 1.0f / 120;
+    contact = Field::collide(sphere{ nextPosition, RESTHEIGHT });
+    time += 1.0f / 120;
+  }
+  
+  collisionDirection = contact.direction;
+
+  return time;
 }
 

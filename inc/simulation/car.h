@@ -94,6 +94,8 @@ class Car {
 
   void driving_handbrake(const Input& in, float dt);
 
+  float nextApproxCollision(vec3& collisionPosition, vec3& collisionVelocity, vec3& collisionDirection);
+
  private:
 
 
