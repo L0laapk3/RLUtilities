@@ -232,9 +232,7 @@ inline vec<n> relu(const vec<n>& v) {
 // project the first vector on the second
 template <int n>
 inline vec<n> project(const vec<n>& v, const vec<n>& other) {
-    vec<n> u = normalize(other);
-    u *= dot(u, other);
-    return u;
+    return dot(v, other) / dot(other, other) * other;
 }
 
 // orthogonalize the first vector from the second
