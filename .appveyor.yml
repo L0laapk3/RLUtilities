@@ -6,7 +6,10 @@ platform:
 
 install:
    - git submodule update --init --recursive
-   - C:\Python38-x64\python.exe -m pip install pybind11_stubgen
+   - nuget.exe install python -Version 3.8.0 -OutputDirectory C:\
+   - nuget.exe install python -Version 3.7.0 -OutputDirectory C:\
+   - nuget.exe install python -Version 3.6.0 -OutputDirectory C:\
+   - C:\Python.3.8.0\tools\python.exe -m pip install pybind11_stubgen
 
 
 before_build:
@@ -16,19 +19,19 @@ before_build:
 build_script:
    - mkdir build38
    - cd build38
-   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python38-x64\python.exe
+   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python.3.8.0\tools\python.exe
    - cmake --build . --config Release
    - mv Release/rlutilities.*.pyd ../python/rlutilities
    - cd ..
    - mkdir build37
    - cd build37
-   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python37-x64\python.exe
+   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python.3.7.0\tools\python.exe
    - cmake --build . --config Release
    - mv Release/rlutilities.*.pyd ../python/rlutilities
    - cd ..
    - mkdir build36
    - cd build36
-   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python36-x64\python.exe
+   - cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python.3.6.0\tools\python.exe
    - cmake --build . --config Release
    - mv Release/rlutilities.*.pyd ../python/rlutilities
    - cd ..
