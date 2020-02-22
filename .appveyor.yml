@@ -38,7 +38,7 @@ build_script:
    
 after_build:
    - cd python/rlutilities
-   - C:\Python38-x64\python.exe -m pybind11_stubgen rlutilities --no-setup -o=.. --root_module_suffix=
+   - C:\Python.3.8.0\tools\python.exe -m pybind11_stubgen rlutilities --no-setup -o=.. --root_module_suffix=
    - cp ../__init__.py __init__.py
    - cp ../../LICENSE.txt LICENSE.txt
    - cd ..
