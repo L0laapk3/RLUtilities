@@ -1,7 +1,7 @@
 
 # Notes from L0laapk3
 
-<img src="https://ci.appveyor.com/api/projects/status/L0laapk3/rlutilities" alt="Appveyor Badge">
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/L0laapk3/rlutilities?branch=master&svg=true)](https://ci.appveyor.com/project/L0laapk3/rlutilities/branch/master)
 
 This work is based on samuelpmish/RLUtilities' prerelease branch.
 I've modified some functions, it may not be compatible anymore with his version.
