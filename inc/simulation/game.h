@@ -42,7 +42,7 @@ class Game {
 
   Ball ball;
 
-  std::array<Car, 8> cars;
+  std::array<Car, 64> cars;
 
   std::vector<Pad> pads;
 

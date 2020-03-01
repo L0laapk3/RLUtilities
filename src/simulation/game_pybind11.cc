@@ -24,8 +24,8 @@ void Game::read_game_information(pybind11::object gametick,
   pybind11::object game_info = gametick.attr("game_info"); 
   num_cars = gametick.attr("num_cars").cast<int>();
 
-  if (num_cars > 8) {
-    std::cout << "playing with more than 8 cars is not supported by rlutilities\n";
+  if (num_cars > 64) {
+    std::cout << "playing with more than 64 cars is not supported by rlutilities\n";
   } else {
 
     float time_old = time;
