@@ -7,7 +7,7 @@ const float Ball::restitution = 0.6f;
 const float Ball::drag = -0.0305f;
 const float Ball::mu = 2.0f;
 
-const float Ball::v_max = 4000.0f;
+const float Ball::v_max = 6000.0f;
 const float Ball::w_max = 6.0f;
 
 const float Ball::m = 30.0f;
