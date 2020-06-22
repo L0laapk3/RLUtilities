@@ -367,6 +367,7 @@ Car::Car() {
 
   hitbox_widths = vec3{59.00368881f, 42.09970474f, 18.07953644f};
   hitbox_offset = vec3{13.97565993f, 0.0f, 20.75498772f};
+  rest_height = 17.00f;
 
   controls = Input();
 }

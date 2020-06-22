@@ -2,6 +2,9 @@
 #include "simulation/field.h"
 
 #include "misc/json.h"
+#include <math.h> 
+
+#include <iostream>
 
 const float Ball::restitution = 0.6f;
 const float Ball::drag = -0.0305f;
@@ -109,13 +112,11 @@ float scale(float dv) {
 	return -1.0f;
 }
 
-bool Ball::collide(const Car & c, bool force) {
+bool Ball::collide(const Car & c) {
 
 	vec3 p = closest_point_on_obb(position, c.hitbox());
-	if (!force) {
-		if (norm(p - position) >= collision_radius)
-			return false;
-	}
+	if (norm(p - position) >= collision_radius)
+		return false;
 
 	vec3 cx = c.position;
 	vec3 cv = c.velocity;
@@ -166,4 +167,82 @@ bool Ball::step(float dt, const Car & c) {
 	step(dt);
 	return collided;
 
+}
+
+
+
+// this function doesnt really belong here
+
+Car Ball::getApproachDestination(const vec3 & targetPosition) {
+	const vec3 gravity = vec3{ 0.0, 0.0, -650.0f };
+
+	vec3 ballToGoal = targetPosition - position;
+	
+	float ballSpeedGuess = 2500;
+	vec3 desiredOutputVelocityDirection = normalize(ballToGoal);
+	vec3 outputBallVelocity = desiredOutputVelocityDirection * ballSpeedGuess;
+
+	Car car = Car();
+
+	vec3 ballVelocity = velocity;
+	vec3 ballAngular = angular_velocity;
+
+
+
+	vec3 ballHitVector = normalize(outputBallVelocity - velocity);
+	
+	car.orientation = look_at(flatten(ballHitVector * radius), vec3{0.0f, 0.0f, 1.0f});	 // assume flat orientation for now xd
+	
+	car.position = position - ballHitVector * radius * 2;
+	vec3 collisionPoint = closest_point_on_obb(position, car.hitbox());
+	car.position = position - ballHitVector * radius + car.position - collisionPoint;
+
+	car.velocity = 1410 * ballHitVector;
+
+
+	for (int i = 0; i < 20; i++) {
+
+		collide(car);
+		car.dodge_timer = norm(vec2(ballToGoal)) / norm(vec2(velocity)); //car.dodge_timer is used to store traveltime of the ball to target
+		vec3 velocityAfterGravity = velocity + vec3{0.0f, 0.0f, gravity[2] * car.dodge_timer / 2};
+		
+    	vec3 errorVector = desiredOutputVelocityDirection * norm(velocityAfterGravity) - velocityAfterGravity;
+    	outputBallVelocity += 0.7f * errorVector;
+
+		// restore ball to original state (from collide)
+		velocity = ballVelocity;
+		angular_velocity = ballAngular;
+		
+		float errorNorm = norm(errorVector);
+		if (car.jump_timer > errorNorm) // not converging, early break
+			break;
+		car.jump_timer = errorNorm;
+
+
+		vec3 ballHitVector = normalize(outputBallVelocity - velocity);
+		
+		car.orientation = look_at(flatten(ballHitVector * radius), vec3{0.0f, 0.0f, 1.0f});	 // assume flat orientation for now xd
+		
+		car.position = position - ballHitVector * radius * 2;
+		vec3 collisionPoint = closest_point_on_obb(position, car.hitbox());
+		car.position = position - ballHitVector * radius + car.position - collisionPoint;
+
+		car.velocity = 2300 * ballHitVector;
+
+
+		if (car.jump_timer < 10)
+			break;
+	}
+
+
+	if (car.position[2] < car.rest_height) {
+		vec3 ballHitHorizontal = normalize(flatten(outputBallVelocity - velocity));
+		float collisionHeight = position[2] - (car.rest_height + car.hitbox_offset[2] + car.hitbox_widths[2]);
+		vec3 ballHitVertical = sqrt(radius*radius - collisionHeight*collisionHeight) * ballHitHorizontal;
+		vec3 ballHitVector = normalize(vec3{0.0f, 0.0f, -collisionHeight} + ballHitVertical);
+		car.position = flatten(position, car.rest_height) - ballHitVertical;
+	}
+
+
+	return car;
 }

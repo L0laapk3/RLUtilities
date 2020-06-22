@@ -30,6 +30,7 @@ void init_car(pybind11::module & m) {
 		.def_readwrite("on_ground", &Car::on_ground)
 		.def_readwrite("jump_timer", &Car::jump_timer)
 		.def_readwrite("dodge_timer", &Car::dodge_timer)
+		.def_readwrite("rest_height", &Car::rest_height)
 		.def_readwrite("boost", &Car::boost)
 		.def_readwrite("controls", &Car::controls)
 		.def_readonly_static("mass", &Car::m)

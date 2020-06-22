@@ -43,6 +43,11 @@ class Ball {
 
   RLU_DLL sphere hitbox();
   RLU_DLL bool step(float dt);
-  RLU_DLL bool collide(const Car & c, bool force = false);
+  RLU_DLL bool collide(const Car & c);
   RLU_DLL bool step(float dt, const Car & c);
+  RLU_DLL Car getApproachDestination(const vec3 & targetPosition);
+
+  #ifdef GENERATE_PYTHON_BINDINGS
+  void updateWithBallPhysics(pybind11::object physics);
+  #endif
 };

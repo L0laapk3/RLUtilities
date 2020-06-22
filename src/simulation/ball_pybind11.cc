@@ -1,6 +1,25 @@
 #include "simulation/ball.h"
 
 #include <pybind11/pybind11.h>
+
+
+vec3 vector3_to_vec3_(pybind11::object vector3) {
+	return vec3{
+		vector3.attr("x").cast<float>(),
+    	vector3.attr("y").cast<float>(),
+		vector3.attr("z").cast<float>()
+	};
+}
+
+void Ball::updateWithBallPhysics(pybind11::object physics) {
+
+    position = vector3_to_vec3_(physics.attr("location"));
+    velocity = vector3_to_vec3_(physics.attr("velocity"));
+    angular_velocity = vector3_to_vec3_(physics.attr("angular_velocity"));
+}
+
+
+
 void init_ball(pybind11::module & m) {
 	pybind11::class_<Ball>(m, "Ball")
 		.def(pybind11::init<>())
@@ -20,6 +39,8 @@ void init_ball(pybind11::module & m) {
 		.def_readonly_static("collision_radius", &Ball::collision_radius)
 		.def("hitbox", &Ball::hitbox)
 		.def("step", static_cast<bool (Ball::*)(float)>(&Ball::step))
-		.def("collide", static_cast<bool (Ball::*)(const Car &, bool)>(&Ball::collide))
-		.def("step", static_cast<bool (Ball::*)(float, const Car &)>(&Ball::step));
+		.def("collide", static_cast<bool (Ball::*)(const Car &)>(&Ball::collide))
+		.def("getApproachDestination", static_cast<Car (Ball::*)(const vec3 &)>(&Ball::getApproachDestination))
+		.def("step", static_cast<bool (Ball::*)(float, const Car &)>(&Ball::step))
+    	.def("updateWithBallPhysics", &Ball::updateWithBallPhysics);
 }

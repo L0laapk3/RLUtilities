@@ -58,6 +58,7 @@ class Car {
 
   vec3 hitbox_widths;
   vec3 hitbox_offset;
+  float rest_height;
 
   int team;
   int id;

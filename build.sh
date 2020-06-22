@@ -22,6 +22,14 @@ mv Release/rlutilities.*.pyd ../python/rlutilities/
 cd ..
 
 
+mkdir build37
+cd build37
+cmake .. -G "Visual Studio 16 2019" -Ax64 -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE="C:/Users/Kris/AppData/Local/Programs/Python/Python37/Python.exe"
+cmake --build . --config Release
+mv Release/rlutilities.*.pyd ../python/rlutilities/
+cd ..
+
+
 cd python/rlutilities
 # stubs are generated based on the default python version, no reason why they shouldnt match..
 py -m pybind11_stubgen rlutilities --no-setup -o=.. --root_module_suffix=
@@ -29,4 +37,4 @@ py -m pybind11_stubgen rlutilities --no-setup -o=.. --root_module_suffix=
 cp ../__init__.py __init__.py
 cp ../../LICENSE.txt LICENSE.txt
 
-read -p "Press [Enter]"
+read -p "$*"

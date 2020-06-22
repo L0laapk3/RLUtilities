@@ -50,7 +50,6 @@ class Game {
 
 #ifdef GENERATE_PYTHON_BINDINGS
   void read_game_information(pybind11::object gametick_packet,
-                             pybind11::object phystick_packet,
                              pybind11::object fieldinfo_packet);
 #else
   int SetState();
