@@ -22,8 +22,8 @@ class Game {
  public:
   Game();
 
-  int frame;
-  int frame_delta;
+  // int frame;
+  // int frame_delta;
 
   float time;
   float time_delta;

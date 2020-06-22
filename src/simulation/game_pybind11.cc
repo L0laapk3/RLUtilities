@@ -31,9 +31,9 @@ void Game::read_game_information(pybind11::object gametick, pybind11::object fie
 		time = game_info.attr("seconds_elapsed").cast<float>();
 		time_delta = time - time_old;
 
-		int frame_old = frame;
-		frame = gametick.attr("ball").attr("state").attr("frame").cast<int>();
-		frame_delta = frame - frame_old;
+		// int frame_old = frame;
+		// frame = phystick.attr("ball").attr("state").attr("frame").cast<int>();
+		// frame_delta = frame - frame_old;
 
 		time_remaining = game_info.attr("game_time_remaining").cast<float>();
 		overtime = game_info.attr("is_overtime").cast<bool>();
@@ -120,8 +120,6 @@ void init_game(pybind11::module & m) {
 		.def_readwrite("time", &Game::time)
 		.def_readwrite("time_delta", &Game::time_delta)
 		.def_readwrite("time_remaining", &Game::time_remaining)
-		.def_readwrite("frame", &Game::frame)
-		.def_readwrite("frame_delta", &Game::frame_delta)
 		.def_readwrite("num_cars", &Game::num_cars)
 		.def_readwrite("overtime", &Game::overtime)
 		.def_readwrite("round_active", &Game::round_active)

@@ -20,9 +20,6 @@ std::string Game::map = "map_not_set";
 std::string Game::mode = "mode_not_set";
 
 Game::Game() {
-  frame = -1;
-  frame_delta = -1;
-
   num_cars = -1;
 
   time = -1.0f;
