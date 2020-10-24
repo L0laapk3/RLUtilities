@@ -36,5 +36,5 @@ py -m pybind11_stubgen rlutilities --no-setup -o=.. --root_module_suffix=
 # __init__.py is hardcoded, this is fine as long as the dirs dont change
 cp ../__init__.py __init__.py
 cp ../../LICENSE.txt LICENSE.txt
-
+echo "done"
 read -p "$*"
