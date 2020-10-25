@@ -6,7 +6,7 @@ platform:
 
 install:
    - git submodule update --init --recursive
-   - C:\Python39-x64\python.exe -m pip install pybind11_stubgen==0.6.2
+   - C:\Python38-x64\python.exe -m pip install pybind11_stubgen==0.6.2
 
 
 before_build:
@@ -14,12 +14,6 @@ before_build:
 
 
 build_script:
-   - mkdir build39
-   - cd build39
-   - cmake .. -G "Visual Studio 15 2017 Win64" -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python39-x64\python.exe
-   - cmake --build . --config Release
-   - mv Release/rlutilities.*.pyd ../python/rlutilities
-   - cd ..
    - mkdir build38
    - cd build38
    - cmake .. -G "Visual Studio 15 2017 Win64" -DWITH_TESTS=TRUE -DTARGET_LANGUAGE=python -DPYTHON_EXECUTABLE=C:\Python38-x64\python.exe
@@ -41,7 +35,7 @@ build_script:
    
 after_build:
    - cd python/rlutilities
-   - C:\Python39-x64\python.exe -m pybind11_stubgen rlutilities --no-setup -o=.. --root_module_suffix=
+   - C:\Python38-x64\python.exe -m pybind11_stubgen rlutilities --no-setup -o=.. --root_module_suffix=
    - cp ../__init__.py __init__.py
    - cp ../../LICENSE.txt LICENSE.txt
    - cd ..
